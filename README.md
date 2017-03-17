@@ -9,8 +9,11 @@ The game is set in a comic/childish animation style, to make it a fun game for c
 
 Sounds:
 The bosses will have fun lines that will sound serious, but will be hard to be taken serious in the context of a living lettuce, adding to the comical effect of the game. (Tanja records the lines)
+
 We will use our unique letter whenever an enemy dies (UARD, Mathias records)
+
 Since we use a fun, arcade style for our game, we will use the classic sound effects for picking up items, shooting your salad leaves, defeating enemies, walking and dying. These sounds will all be in bit style for old school feeling.
+
 And lastly, we will have background music running, changing it for specific cases such as fighting bosses or freeing your allied fruits.
 
 Level design:
@@ -21,9 +24,13 @@ The main character, our lettuce, is a lettuce which has sprouted feet for unknow
 
 Weapons:
 Single shot: Standard attack - you shoot a lettuce leaf at an enemy, stopping them in their tracks for a few seconds, allowing you to defeat them with a melee attack.
+
 Multishot: One of the available power ups in the game, allowing you to shoot multiple lettuce leaves to hit more enemies at once.
+
 Rapidfire: One of the available power ups in the game, allowing you to shoot single leaf attacks in rapid succession, far faster than the standard leaf.
+
 Pipebomb: Pipebomb is a special weapon you can pick up that does not replace your lettuce leaf attack, however it does take the power up spot of the other weapons. The "pipebomb" is a bomb you can throw that will attract the enemies for a set duration, allowing you to freely loot or do whatever you want while they are gone.
+
 Melee: The only way to defeat an enemy. It is a close range attack that will defeat an enemy. It can only be used when the enemy has already been hit by a leaf attack to stun them and then you walk up behind them to use the melee.
 
 Abilities: 

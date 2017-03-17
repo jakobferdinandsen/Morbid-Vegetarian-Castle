@@ -31,8 +31,8 @@ You have the ability to roll. It is a fast movement ability, primarily to be use
 
 **Power ups:**
 Seperate from the weapon power ups, these things buff your character instead of your weapon.                                      
-Rotten: You rot for a short amount of time, allowing you to evade the enemies because who wants to eat rotten salad?                                      
-Shield: You gain a shield, allowing you to absorb one hit.
+*Rotten:* You rot for a short amount of time, allowing you to evade the enemies because who wants to eat rotten salad?                                      
+*Shield:* You gain a shield, allowing you to absorb one hit.
 
 **Enemies:**
 We have a few types of enemies so far, to keep everything simple.                                      

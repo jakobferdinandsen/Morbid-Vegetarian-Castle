@@ -13,20 +13,9 @@ public class Player : MonoBehaviour
         playerObject = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update() {
-        if (Input.GetKey(KeyCode.LeftArrow)) {
-            
-        }
-        if (Input.GetKey(KeyCode.RightArrow)) {
-
-        }
-        if (Input.GetKey(KeyCode.UpArrow)) {
-
-        }
-        if (Input.GetKey(KeyCode.DownArrow)) {
-
-        }
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+        transform.position += move * speed * Time.deltaTime;
     }
 
     void OnCollisionEnter2D(Collision2D coll) { }

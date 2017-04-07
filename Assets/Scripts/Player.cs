@@ -6,15 +6,15 @@ public class Player : MonoBehaviour
 {
     public float speed;
 
-    private Rigidbody2D playerObject;
+    private Rigidbody playerObject;
 
     // Use this for initialization
     void Start() {
-        playerObject = GetComponent<Rigidbody2D>();
+        playerObject = GetComponent<Rigidbody>();
     }
 
     void Update() {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+		Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         transform.position += move * speed * Time.deltaTime;
     }
 

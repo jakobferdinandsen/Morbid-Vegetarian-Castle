@@ -17,6 +17,10 @@ public class Player : MonoBehaviour
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
         transform.position += move * speed * Time.deltaTime;
 
+        if (Input.GetMouseButtonDown(1)) {
+            
+        }
+
         if (Input.GetMouseButtonDown(0)) {
             Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             GameObject bullet = (GameObject) Instantiate(Resources.Load("bullet"));

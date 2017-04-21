@@ -16,7 +16,7 @@ public class Follower : MonoBehaviour
     void Start() {
         playerObject = GetComponent<Rigidbody2D>();
         nonTraversables = GameObject.FindGameObjectsWithTag("nontraversable");
-        mapBoundary = GameObject.FindGameObjectWithTag("mapboundary");
+//        mapBoundary = GameObject.FindGameObjectWithTag("mapboundary");
 
 //        foreach (GameObject nonTraversable in nonTraversables)
 //        {

@@ -1,16 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
-{
+public class Player : MonoBehaviour{
     public float speed;
 
     private Rigidbody2D playerObject;
+    private GameObject sword;
+    private Boolean swinging;
 
     // Use this for initialization
     void Start() {
         playerObject = GetComponent<Rigidbody2D>();
+        sword = GameObject.FindWithTag("playerSword");
+        sword.GetComponent<BoxCollider2D>().enabled = false;
+        sword.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     void Update() {
@@ -18,7 +23,7 @@ public class Player : MonoBehaviour
         transform.position += move * speed * Time.deltaTime;
 
         if (Input.GetMouseButtonDown(1)) {
-            
+            swinging = true;
         }
 
         if (Input.GetMouseButtonDown(0)) {
@@ -30,7 +35,26 @@ public class Player : MonoBehaviour
             direction.Normalize();
             bullet.GetComponent<Rigidbody2D>().velocity = direction * speed;
         }
+
+        if (swinging) {
+            if (sword.GetComponent<BoxCollider2D>().enabled == false) {
+                sword.transform.localEulerAngles = new Vector3(0, 0, 330);
+                sword.transform.localPosition = new Vector3(0.847f, -0.046f, 0);
+            }
+            sword.GetComponent<BoxCollider2D>().enabled = true;
+            sword.GetComponent<SpriteRenderer>().enabled = true;
+
+            sword.transform.localEulerAngles = new Vector3(0, 0,
+                sword.transform.localEulerAngles.z - 400 * Time.deltaTime);
+
+            if (sword.transform.localEulerAngles.z < 210) {
+                swinging = false;
+                sword.GetComponent<BoxCollider2D>().enabled = false;
+                sword.GetComponent<SpriteRenderer>().enabled = false;
+            }
+        }
     }
 
-    void OnCollisionEnter2D(Collision2D coll) { }
+    void OnCollisionEnter2D(Collision2D coll) {
+    }
 }

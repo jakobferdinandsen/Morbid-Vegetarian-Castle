@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletScript : MonoBehaviour {
+public class Weapon : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -15,9 +15,6 @@ public class BulletScript : MonoBehaviour {
 	}
 
     void OnCollisionEnter2D(Collision2D coll) {
-        if (coll.gameObject.tag != "Player") {
-            Destroy(gameObject);
-        }
         if (coll.gameObject.tag == "Enemy") {
             Destroy(coll.gameObject);
         }

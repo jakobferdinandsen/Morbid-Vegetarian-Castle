@@ -37,7 +37,7 @@ public class Player : MonoBehaviour{
 
         if (Input.GetMouseButtonDown(0)) {
             Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-            GameObject bullet = (GameObject) Instantiate(Resources.Load("bullet"));
+            GameObject bullet = (GameObject) Instantiate(Resources.Load("Range"));
             Vector2 normalizedDirection = direction.normalized;
             bullet.transform.position = new Vector3(transform.position.x + normalizedDirection.x,
                 transform.position.y + normalizedDirection.y);

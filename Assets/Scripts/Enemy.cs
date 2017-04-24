@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.WSA;
 
-public class Follower : MonoBehaviour
-{
+public class Enemy : MonoBehaviour{
     public Transform target;
     public float speed;
 
@@ -32,10 +30,10 @@ public class Follower : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, target.position, step);
     }
 
-    void OnCollisionEnter2D(Collision2D coll) { }
+    void OnCollisionEnter2D(Collision2D coll) {
+    }
 
-    public class Boundary
-    {
+    public class Boundary{
         public float left { get; set; }
         public float right { get; set; }
         public float top { get; set; }

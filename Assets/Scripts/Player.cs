@@ -37,18 +37,18 @@ public class Player : MonoBehaviour{
 
         if (Input.GetMouseButtonDown(0)) {
             Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-            GameObject bullet = (GameObject) Instantiate(Resources.Load("Range"));
+            GameObject bullet = (GameObject) Instantiate(Resources.Load("bullet"));
             Vector2 normalizedDirection = direction.normalized;
             bullet.transform.position = new Vector3(transform.position.x + normalizedDirection.x,
                 transform.position.y + normalizedDirection.y);
             direction.Normalize();
-            bullet.GetComponent<Rigidbody2D>().velocity = direction * speed;
+            bullet.GetComponent<Rigidbody2D>().velocity = direction * speed*2;
         }
 
         if (swinging) {
             if (sword.GetComponent<BoxCollider2D>().enabled == false) {
                 sword.transform.localEulerAngles = new Vector3(0, 0, 330);
-                sword.transform.localPosition = new Vector3(0.847f, -0.046f, 0);
+                sword.transform.localPosition = new Vector3(1.61f, -0.046f, 0);
             }
             sword.GetComponent<BoxCollider2D>().enabled = true;
             sword.GetComponent<SpriteRenderer>().enabled = true;
@@ -113,6 +113,10 @@ public class Player : MonoBehaviour{
             greenKeyCollected++;
             GameObject.FindGameObjectWithTag("Green_Key_Text").GetComponent<Text>().text = greenKeyCollected + "/1";
             Debug.Log("Green_Key Collected " + greenKeyCollected + "/1");
+        }
+
+        if (coll.gameObject.tag == "Enemy") {
+            Destroy(gameObject);
         }
     }
 }

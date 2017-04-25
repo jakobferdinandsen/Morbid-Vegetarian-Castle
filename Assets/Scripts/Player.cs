@@ -114,5 +114,11 @@ public class Player : MonoBehaviour{
             GameObject.FindGameObjectWithTag("Green_Key_Text").GetComponent<Text>().text = greenKeyCollected + "/1";
             Debug.Log("Green_Key Collected " + greenKeyCollected + "/1");
         }
+
+        //Green Door
+        if (coll.gameObject.tag == "Green_Door" && greenKeyCollected >= 1)
+        {
+            Destroy(coll.gameObject);
+        }
     }
 }

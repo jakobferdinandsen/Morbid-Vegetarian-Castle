@@ -30,18 +30,20 @@ public class Enemy : MonoBehaviour{
     }
 
     void Update() {
-        float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+        if (Time.time - timestamp > 2) {
+            waiting = false;
+        }
 
-        if (timestamp > 4) {
-            speed = 5;
+        if (!waiting) {
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
         }
     }
 
     void OnCollisionEnter2D(Collision2D coll) {
         if (coll.gameObject.tag == "bullet") {
             timestamp = Time.time;
-            speed = 0;
+            waiting = true;
         }
     }
 

@@ -13,6 +13,7 @@ public class Player : MonoBehaviour{
 
     //Collections
     private int BabySalatsCollected = 0;
+
     private int yellowKeyCollected = 0;
     private int greenKeyCollected = 0;
     private int blueKeyCollected = 0;
@@ -42,7 +43,7 @@ public class Player : MonoBehaviour{
             bullet.transform.position = new Vector3(transform.position.x + normalizedDirection.x,
                 transform.position.y + normalizedDirection.y);
             direction.Normalize();
-            bullet.GetComponent<Rigidbody2D>().velocity = direction * speed*2;
+            bullet.GetComponent<Rigidbody2D>().velocity = direction * speed * 2;
         }
 
         if (swinging) {
@@ -64,33 +65,27 @@ public class Player : MonoBehaviour{
         }
     }
 
-    void OnCollisionEnter2D(Collision2D coll)
-    {
-        if (coll.gameObject.tag == "Back_to_level_1")
-        {
+    void OnCollisionEnter2D(Collision2D coll) {
+        if (coll.gameObject.tag == "Back_to_level_1") {
             Application.LoadLevel(0);
             Debug.Log("Entered door to Level_1");
             Debug.Log(coll.transform.position);
         }
-        else if (coll.gameObject.tag == "Door_1")
-        {
+        else if (coll.gameObject.tag == "Door_1") {
             Application.LoadLevel(1);
             Debug.Log("Entered door to Level_1_Part2");
         }
-        else if (coll.gameObject.tag == "Back_to_level_2")
-        {
+        else if (coll.gameObject.tag == "Back_to_level_2") {
             Application.LoadLevel(2);
             Debug.Log("Entered door to Level_2");
         }
-        else if (coll.gameObject.tag == "Door_2")
-        {
+        else if (coll.gameObject.tag == "Door_2") {
             Application.LoadLevel(3);
             Debug.Log("Entered door to Level_2_Part2");
         }
 
         //Baby Salats
-        if (coll.gameObject.tag == "Baby_salat")
-        {
+        if (coll.gameObject.tag == "Baby_salat") {
             Destroy(coll.gameObject);
             BabySalatsCollected++;
             GameObject.FindGameObjectWithTag("Baby_salat_text").GetComponent<Text>().text = BabySalatsCollected + "/3";
@@ -98,8 +93,7 @@ public class Player : MonoBehaviour{
         }
 
         //Yellow Key
-        if (coll.gameObject.tag == "yellowKey")
-        {
+        if (coll.gameObject.tag == "yellowKey") {
             Destroy(coll.gameObject);
             yellowKeyCollected++;
             GameObject.FindGameObjectWithTag("Yellow_Key_Text").GetComponent<Text>().text = yellowKeyCollected + "/1";
@@ -107,12 +101,21 @@ public class Player : MonoBehaviour{
         }
 
         //Green Key
-        if (coll.gameObject.tag == "greenKey")
-        {
+        if (coll.gameObject.tag == "greenKey") {
             Destroy(coll.gameObject);
             greenKeyCollected++;
             GameObject.FindGameObjectWithTag("Green_Key_Text").GetComponent<Text>().text = greenKeyCollected + "/1";
             Debug.Log("Green_Key Collected " + greenKeyCollected + "/1");
+        }
+
+        //Green Door
+        if (coll.gameObject.tag == "Green_Door" && greenKeyCollected >= 1) {
+            Destroy(coll.gameObject);
+        }
+
+        //Yellow Door
+        if (coll.gameObject.tag == "Yellow_Door" && yellowKeyCollected >= 1) {
+            Destroy(coll.gameObject);
         }
 
         if (coll.gameObject.tag == "Enemy") {

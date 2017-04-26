@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour{
-    public Transform target;
+    public static int id;
     public float speed;
 
-    private Rigidbody2D playerObject;
+    private Transform target;
     private GameObject[] nonTraversables;
     private GameObject mapBoundary;
 
@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour{
 
     // Use this for initialization
     void Start() {
-        playerObject = GetComponent<Rigidbody2D>();
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         nonTraversables = GameObject.FindGameObjectsWithTag("nontraversable");
 //        mapBoundary = GameObject.FindGameObjectWithTag("mapboundary");
 

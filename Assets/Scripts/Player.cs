@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour{
@@ -69,29 +70,29 @@ public class Player : MonoBehaviour{
 
     void OnCollisionEnter2D(Collision2D coll) {
         if (coll.gameObject.tag == "Back_to_level_1") {
-            Application.LoadLevel(0);
+            SceneManager.LoadScene("Level_1");
             Debug.Log("Entered door to Level_1");
             Debug.Log(coll.transform.position);
         }
         else if (coll.gameObject.tag == "Door_1") {
-            Application.LoadLevel(1);
+            SceneManager.LoadScene("Level_1_Part2");
             Debug.Log("Entered door to Level_1_Part2");
         }
         else if (coll.gameObject.tag == "Back_to_level_2") {
-            Application.LoadLevel(2);
+            SceneManager.LoadScene("Level_2");
             Debug.Log("Entered door to Level_2");
         }
         else if (coll.gameObject.tag == "Door_2") {
-            Application.LoadLevel(3);
+            SceneManager.LoadScene("Level_2_Part2");
             Debug.Log("Entered door to Level_2_Part2");
         }
 
-        //Baby Salats
+        //Baby Salads
         if (coll.gameObject.tag == "Baby_salat") {
             Destroy(coll.gameObject);
             BabySalatsCollected++;
-            GameObject.FindGameObjectWithTag("Baby_salat_text").GetComponent<Text>().text = BabySalatsCollected + "/3";
-            Debug.Log("Baby_Salat Collected " + BabySalatsCollected + "/3");
+            GameObject.FindGameObjectWithTag("Baby_salat_text").GetComponent<Text>().text = BabySalatsCollected + "/6";
+            Debug.Log("Baby_Salat Collected " + BabySalatsCollected + "/6");
         }
 
         //Yellow Key

@@ -106,9 +106,9 @@ public class Player : MonoBehaviour{
             Destroy(coll.gameObject);
         }
 
-//        if (coll.gameObject.tag == "Enemy") {
-//            Destroy(gameObject);
-//        }
+        if (coll.gameObject.tag == "Enemy") {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D coll) {

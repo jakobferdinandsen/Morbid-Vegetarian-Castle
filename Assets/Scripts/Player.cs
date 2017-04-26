@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour{
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour{
 
     //Collections
     private int BabySalatsCollected = 0;
+
     private int yellowKeyCollected = 0;
     private int greenKeyCollected = 0;
     private int blueKeyCollected = 0;
@@ -31,24 +33,26 @@ public class Player : MonoBehaviour{
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
         transform.position += move * speed * Time.deltaTime;
 
+        //Swing
         if (Input.GetMouseButtonDown(1)) {
             swinging = true;
         }
 
+        //Shoot
         if (Input.GetMouseButtonDown(0)) {
             Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-            GameObject bullet = (GameObject) Instantiate(Resources.Load("Range"));
+            GameObject bullet = (GameObject) Instantiate(Resources.Load("bullet"));
             Vector2 normalizedDirection = direction.normalized;
             bullet.transform.position = new Vector3(transform.position.x + normalizedDirection.x,
                 transform.position.y + normalizedDirection.y);
             direction.Normalize();
-            bullet.GetComponent<Rigidbody2D>().velocity = direction * speed;
+            bullet.GetComponent<Rigidbody2D>().velocity = direction * speed * 2;
         }
 
         if (swinging) {
             if (sword.GetComponent<BoxCollider2D>().enabled == false) {
                 sword.transform.localEulerAngles = new Vector3(0, 0, 330);
-                sword.transform.localPosition = new Vector3(0.847f, -0.046f, 0);
+                sword.transform.localPosition = new Vector3(1.61f, -0.046f, 0);
             }
             sword.GetComponent<BoxCollider2D>().enabled = true;
             sword.GetComponent<SpriteRenderer>().enabled = true;
@@ -64,42 +68,35 @@ public class Player : MonoBehaviour{
         }
     }
 
-    void OnCollisionEnter2D(Collision2D coll)
-    {
-        if (coll.gameObject.tag == "Back_to_level_1")
-        {
-            Application.LoadLevel(0);
+    void OnCollisionEnter2D(Collision2D coll) {
+        if (coll.gameObject.tag == "Back_to_level_1") {
+            SceneManager.LoadScene("Level_1");
             Debug.Log("Entered door to Level_1");
             Debug.Log(coll.transform.position);
         }
-        else if (coll.gameObject.tag == "Door_1")
-        {
-            Application.LoadLevel(1);
+        else if (coll.gameObject.tag == "Door_1") {
+            SceneManager.LoadScene("Level_1_Part2");
             Debug.Log("Entered door to Level_1_Part2");
         }
-        else if (coll.gameObject.tag == "Back_to_level_2")
-        {
-            Application.LoadLevel(2);
+        else if (coll.gameObject.tag == "Back_to_level_2") {
+            SceneManager.LoadScene("Level_2");
             Debug.Log("Entered door to Level_2");
         }
-        else if (coll.gameObject.tag == "Door_2")
-        {
-            Application.LoadLevel(3);
+        else if (coll.gameObject.tag == "Door_2") {
+            SceneManager.LoadScene("Level_2_Part2");
             Debug.Log("Entered door to Level_2_Part2");
         }
 
-        //Baby Salats
-        if (coll.gameObject.tag == "Baby_salat")
-        {
+        //Baby Salads
+        if (coll.gameObject.tag == "Baby_salat") {
             Destroy(coll.gameObject);
             BabySalatsCollected++;
-            GameObject.FindGameObjectWithTag("Baby_salat_text").GetComponent<Text>().text = BabySalatsCollected + "/3";
-            Debug.Log("Baby_Salat Collected " + BabySalatsCollected + "/3");
+            GameObject.FindGameObjectWithTag("Baby_salat_text").GetComponent<Text>().text = BabySalatsCollected + "/6";
+            Debug.Log("Baby_Salat Collected " + BabySalatsCollected + "/6");
         }
 
         //Yellow Key
-        if (coll.gameObject.tag == "yellowKey")
-        {
+        if (coll.gameObject.tag == "yellowKey") {
             Destroy(coll.gameObject);
             yellowKeyCollected++;
             GameObject.FindGameObjectWithTag("Yellow_Key_Text").GetComponent<Text>().text = yellowKeyCollected + "/1";
@@ -107,8 +104,7 @@ public class Player : MonoBehaviour{
         }
 
         //Green Key
-        if (coll.gameObject.tag == "greenKey")
-        {
+        if (coll.gameObject.tag == "greenKey") {
             Destroy(coll.gameObject);
             greenKeyCollected++;
             GameObject.FindGameObjectWithTag("Green_Key_Text").GetComponent<Text>().text = greenKeyCollected + "/1";
@@ -116,9 +112,17 @@ public class Player : MonoBehaviour{
         }
 
         //Green Door
-        if (coll.gameObject.tag == "Green_Door" && greenKeyCollected >= 1)
-        {
+        if (coll.gameObject.tag == "Green_Door" && greenKeyCollected >= 1) {
             Destroy(coll.gameObject);
+        }
+
+        //Yellow Door
+        if (coll.gameObject.tag == "Yellow_Door" && yellowKeyCollected >= 1) {
+            Destroy(coll.gameObject);
+        }
+
+        if (coll.gameObject.tag == "Enemy") {
+            Destroy(gameObject);
         }
     }
 }

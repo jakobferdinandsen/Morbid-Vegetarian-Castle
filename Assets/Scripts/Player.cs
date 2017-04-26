@@ -176,6 +176,10 @@ public class Player : MonoBehaviour{
                 gameObject.transform.position = new Vector3(48.52f, -12.14f, 0);
                 PlayerPrefs.DeleteKey("lastLevel");
             }
+            if (PlayerPrefs.GetString("lastLevel") == "Level_1_Part2") {
+                gameObject.transform.position = new Vector3(-11.72f, -14.69f, 0);
+                PlayerPrefs.DeleteKey("lastLevel");
+            }
         }
 
         if (PlayerPrefs.HasKey("babySalatsCollected")) {

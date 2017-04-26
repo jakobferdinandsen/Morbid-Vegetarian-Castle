@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour{
-    public static int id;
     public float speed;
 
     private Transform target;

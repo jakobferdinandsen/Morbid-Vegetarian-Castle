@@ -15,7 +15,6 @@ public class ResetLevel : MonoBehaviour
 
     public void LevelReset()
     {
-        Debug.Log("Something");
         Application.LoadLevel(scene.name);
         Time.timeScale = 1;
     }

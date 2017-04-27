@@ -11,9 +11,11 @@ public class Player : MonoBehaviour{
 
     private Rigidbody2D playerObject;
 
+    private bool goingLeft = false;
 
     //Attack
     private GameObject sword;
+
     private Boolean swinging;
     public float attackRadius;
     private float attackRad;
@@ -25,7 +27,6 @@ public class Player : MonoBehaviour{
     private int greenKeyCollected = 0;
     private int blueKeyCollected = 0;
     private int redKeyCollected = 0;
-
 
 
     // Use this for initialization
@@ -40,6 +41,11 @@ public class Player : MonoBehaviour{
 
     void Update() {
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+        if (move.x != 0) {
+            goingLeft = move.x < 0;
+        }
+        gameObject.GetComponent<SpriteRenderer>().flipX = goingLeft;
+
         transform.position += move * speed * Time.deltaTime;
 
         //Swing
@@ -59,18 +65,26 @@ public class Player : MonoBehaviour{
         }
 
         if (swinging) {
+            sword.GetComponent<SpriteRenderer>().flipX = goingLeft;
             if (sword.GetComponent<BoxCollider2D>().enabled == false) {
-                attackRad = (float) (0.5*Math.PI);
+                attackRad = (float) (0.5 * Math.PI);
             }
             sword.GetComponent<BoxCollider2D>().enabled = true;
             sword.GetComponent<SpriteRenderer>().enabled = true;
             float x = (float) (attackRadius * Math.Cos(attackRad));
-            float y = (float) (attackRadius * Math.Sin(attackRad));
+            if (goingLeft) {
+                x = x * -1;
+                sword.transform.localEulerAngles = new Vector3(0, 0, (attackRad * 57.2958f) + 210);
+            }
+            else {
+                sword.transform.localEulerAngles = new Vector3(0, 0, (-attackRad * 57.2958f) + 150);
+            }
+            float y = (float) (attackRadius * Math.Sin(attackRad)) + 0.2f;
             sword.transform.localPosition = new Vector3(-x, y, 0);
-            sword.transform.localEulerAngles = new Vector3(0,0, (-attackRad*57.2958f)+150);
-            attackRad = attackRad + Time.deltaTime;
-            Debug.Log("x:"+x+", y:"+y+", rad:"+attackRad);
-            if (attackRad >= 1.5*Math.PI) {
+
+            attackRad = attackRad + 10 * Time.deltaTime;
+
+            if (attackRad >= 1.5 * Math.PI) {
                 swinging = false;
                 sword.GetComponent<BoxCollider2D>().enabled = false;
                 sword.GetComponent<SpriteRenderer>().enabled = false;

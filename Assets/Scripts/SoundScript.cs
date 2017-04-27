@@ -6,17 +6,17 @@ public class SoundScript : MonoBehaviour
 {
 
     //AudioSource
-    public AudioSource audioHandler;
+    private AudioSource audioHandler;
 
     //AudioClip
-    public AudioClip keyPickUp;             //COMPLETE
-    public AudioClip babySalatPickUp;       //COMPLETE
-    public AudioClip doorPickUp;            //COMPLETE
-    public AudioClip movement1;             //COMPLETE
-    public AudioClip movement2;             //COMPLETE
-    public AudioClip rangedHit;             //COMPLETE
-    public AudioClip rangedHit2;            //COMPLETE
-    public AudioClip meleeHit;
+    private AudioClip keyPickUp;             //COMPLETE
+    private AudioClip babySalatPickUp;       //COMPLETE
+    private AudioClip doorPickUp;            //COMPLETE
+    private AudioClip movement1;             //COMPLETE
+    private AudioClip movement2;             //COMPLETE
+    private AudioClip rangedHit;             //COMPLETE
+    private AudioClip rangedHit2;            //COMPLETE
+    private AudioClip meleeHit;
 
     private bool rangedHitSound = false;
     private bool movementSound = false;
@@ -25,6 +25,15 @@ public class SoundScript : MonoBehaviour
     void Start()
     {
         audioHandler = GetComponent<AudioSource>();
+        keyPickUp = Resources.Load("Sounds/keyPickUp") as AudioClip;
+        babySalatPickUp = Resources.Load("Sounds/babySalatPickUp") as AudioClip;
+        doorPickUp = Resources.Load("Sounds/OpenDoor") as AudioClip;
+        movement1 = Resources.Load("Sounds/Walk1") as AudioClip;
+        movement2 = Resources.Load("Sounds/Walk2") as AudioClip;
+        rangedHit = Resources.Load("Sounds/RangedHit") as AudioClip;
+        rangedHit2 = Resources.Load("Sounds/RangedHit2") as AudioClip;
+        meleeHit = Resources.Load("Sounds/MeleeHit") as AudioClip;
+
     }
 
     // Update is called once per frame

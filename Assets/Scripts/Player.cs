@@ -10,8 +10,15 @@ public class Player : MonoBehaviour{
     public float speed;
 
     private Rigidbody2D playerObject;
+
+    private bool goingLeft = false;
+
+    //Attack
     private GameObject sword;
+
     private Boolean swinging;
+    public float attackRadius;
+    private float attackRad;
 
     public PlayerHealth healthScript;
 
@@ -36,6 +43,11 @@ public class Player : MonoBehaviour{
 
     void Update() {
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+        if (move.x != 0) {
+            goingLeft = move.x < 0;
+        }
+        gameObject.GetComponent<SpriteRenderer>().flipX = goingLeft;
+
         transform.position += move * speed * Time.deltaTime;
 
         //Swing
@@ -55,17 +67,26 @@ public class Player : MonoBehaviour{
         }
 
         if (swinging) {
+            sword.GetComponent<SpriteRenderer>().flipX = goingLeft;
             if (sword.GetComponent<BoxCollider2D>().enabled == false) {
-                sword.transform.localEulerAngles = new Vector3(0, 0, 330);
-                sword.transform.localPosition = new Vector3(1.40f, -0.046f, 0);
+                attackRad = (float) (0.5 * Math.PI);
             }
             sword.GetComponent<BoxCollider2D>().enabled = true;
             sword.GetComponent<SpriteRenderer>().enabled = true;
+            float x = (float) (attackRadius * Math.Cos(attackRad));
+            if (goingLeft) {
+                x = x * -1;
+                sword.transform.localEulerAngles = new Vector3(0, 0, (attackRad * 57.2958f) + 210);
+            }
+            else {
+                sword.transform.localEulerAngles = new Vector3(0, 0, (-attackRad * 57.2958f) + 150);
+            }
+            float y = (float) (attackRadius * Math.Sin(attackRad)) + 0.2f;
+            sword.transform.localPosition = new Vector3(-x, y, 0);
 
-            sword.transform.localEulerAngles = new Vector3(0, 0,
-                sword.transform.localEulerAngles.z - 400 * Time.deltaTime);
+            attackRad = attackRad + 10 * Time.deltaTime;
 
-            if (sword.transform.localEulerAngles.z < 210) {
+            if (attackRad >= 1.5 * Math.PI) {
                 swinging = false;
                 sword.GetComponent<BoxCollider2D>().enabled = false;
                 sword.GetComponent<SpriteRenderer>().enabled = false;
@@ -136,8 +157,16 @@ public class Player : MonoBehaviour{
         }
         else if (coll.CompareTag("CompleteLevel1")) {
             if (yellowKeyCollected > 0) {
+                LevelManager.firstLaunch = true;
                 Destroy(GameObject.FindWithTag("LevelManager"));
                 SceneManager.LoadScene("Level_2");
+            }
+        }else if (coll.CompareTag("CompleteLevel2")) {
+            if (greenKeyCollected > 0) {
+                LevelManager.firstLaunch = true;
+                Destroy(GameObject.FindWithTag("LevelManager"));
+                //TODO Load main menu
+                SceneManager.LoadScene("Level_1");
             }
         }
     }

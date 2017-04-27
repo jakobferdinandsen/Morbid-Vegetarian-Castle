@@ -6,6 +6,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour{
     public float speed;
 
+
     private Transform target;
     private GameObject[] nonTraversables;
     private GameObject mapBoundary;

@@ -63,6 +63,7 @@ public class Player : MonoBehaviour{
             bullet.transform.position = new Vector3(transform.position.x + normalizedDirection.x,
                 transform.position.y + normalizedDirection.y);
             direction.Normalize();
+            Debug.Log(direction);
             bullet.GetComponent<Rigidbody2D>().velocity = direction * speed * 2;
         }
 
@@ -138,22 +139,20 @@ public class Player : MonoBehaviour{
         if (coll.CompareTag("Back_to_level_1")) {
             SaveState();
             SceneManager.LoadScene("Level_1");
-            Debug.Log("Entered door to Level_1");
         }
         else if (coll.CompareTag("Door_1")) {
             SaveState();
             SceneManager.LoadScene("Level_1_Part2");
-            Debug.Log("Entered door to Level_1_Part2");
         }
         else if (coll.CompareTag("Back_to_level_2")) {
             SaveState();
             SceneManager.LoadScene("Level_2");
-            Debug.Log("Entered door to Level_2");
+            GameObject enemy = Resources.Load("BigGuy") as GameObject;
+            enemy.transform.position = new Vector3(-27.37002f, -8.7f, 0);
         }
         else if (coll.CompareTag("Door_2")) {
             SaveState();
             SceneManager.LoadScene("Level_2_Part2");
-            Debug.Log("Entered door to Level_2_Part2");
         }
         else if (coll.CompareTag("CompleteLevel1")) {
             if (yellowKeyCollected > 0) {
@@ -161,7 +160,8 @@ public class Player : MonoBehaviour{
                 Destroy(GameObject.FindWithTag("LevelManager"));
                 SceneManager.LoadScene("Level_2");
             }
-        }else if (coll.CompareTag("CompleteLevel2")) {
+        }
+        else if (coll.CompareTag("CompleteLevel2")) {
             if (greenKeyCollected > 0) {
                 LevelManager.firstLaunch = true;
                 Destroy(GameObject.FindWithTag("LevelManager"));
@@ -183,6 +183,14 @@ public class Player : MonoBehaviour{
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies) {
             savedJson += getPositionJson("\"enemy\"", enemy);
+        }
+        GameObject[] rangedEnemies = GameObject.FindGameObjectsWithTag("RangedEnemy");
+        foreach (GameObject rangedEnemy in rangedEnemies) {
+            savedJson += getPositionJson("\"ranged\"", rangedEnemy);
+        }
+        GameObject[] bigGuys = GameObject.FindGameObjectsWithTag("BigGuy");
+        foreach (GameObject bigGuy in bigGuys) {
+            savedJson += getPositionJson("\"bigguy\"", bigGuy);
         }
         GameObject[] salads = GameObject.FindGameObjectsWithTag("Baby_salat");
         foreach (GameObject salad in salads) {
@@ -277,6 +285,12 @@ public class Player : MonoBehaviour{
                 GameObject tempObject = null;
                 if (position.type == "salad") {
                     tempObject = (GameObject) Instantiate(Resources.Load("baby_salat"));
+                }
+                else if (position.type == "ranged") {
+                    tempObject = (GameObject) Instantiate(Resources.Load("RangedEnemy"));
+                }
+                else if (position.type == "bigguy") {
+                    tempObject = (GameObject) Instantiate(Resources.Load("BigGuy"));
                 }
                 else {
                     tempObject = (GameObject) Instantiate(Resources.Load("Enemy"));

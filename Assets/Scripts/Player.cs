@@ -13,6 +13,8 @@ public class Player : MonoBehaviour{
     private GameObject sword;
     private Boolean swinging;
 
+    public PlayerHealth healthScript;
+
     //Collections
     private int babySalatsCollected = 0;
 
@@ -132,6 +134,12 @@ public class Player : MonoBehaviour{
             SceneManager.LoadScene("Level_2_Part2");
             Debug.Log("Entered door to Level_2_Part2");
         }
+        else if (coll.CompareTag("CompleteLevel1")) {
+            if (yellowKeyCollected > 0) {
+                Destroy(GameObject.FindWithTag("LevelManager"));
+                SceneManager.LoadScene("Level_2");
+            }
+        }
     }
 
     private void SaveState() {
@@ -141,6 +149,7 @@ public class Player : MonoBehaviour{
         PlayerPrefs.SetInt("yellowKeyCollected", yellowKeyCollected);
         PlayerPrefs.SetInt("blueKeyCollected", blueKeyCollected);
         PlayerPrefs.SetInt("redKeyCollected", redKeyCollected);
+        healthScript.SaveState();
 
         String savedJson = "{\"positions\":[";
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");

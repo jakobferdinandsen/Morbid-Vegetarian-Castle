@@ -57,7 +57,7 @@ public class Player : MonoBehaviour{
         if (swinging) {
             if (sword.GetComponent<BoxCollider2D>().enabled == false) {
                 sword.transform.localEulerAngles = new Vector3(0, 0, 330);
-                sword.transform.localPosition = new Vector3(1.61f, -0.046f, 0);
+                sword.transform.localPosition = new Vector3(1.40f, -0.046f, 0);
             }
             sword.GetComponent<BoxCollider2D>().enabled = true;
             sword.GetComponent<SpriteRenderer>().enabled = true;

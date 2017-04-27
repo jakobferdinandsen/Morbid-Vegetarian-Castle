@@ -18,8 +18,8 @@ public class BulletScript : MonoBehaviour {
         if (coll.gameObject.tag != "Player") {
             Destroy(gameObject);
         }
-        if (coll.gameObject.tag == "Enemy") {
-            Destroy(coll.gameObject);
-        }
+//        if (coll.gameObject.tag == "Enemy") {
+//            Destroy(coll.gameObject);
+//        }
     }
 }

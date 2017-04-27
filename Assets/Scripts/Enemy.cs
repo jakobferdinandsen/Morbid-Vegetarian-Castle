@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour{
     }
 
     void OnCollisionEnter2D(Collision2D coll) {
-        if (coll.gameObject.tag == "bullet") {
+        if (coll.gameObject.CompareTag("bullet")) {
             timestamp = Time.time;
             waiting = true;
         }

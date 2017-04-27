@@ -165,8 +165,7 @@ public class Player : MonoBehaviour{
             if (greenKeyCollected > 0) {
                 LevelManager.firstLaunch = true;
                 Destroy(GameObject.FindWithTag("LevelManager"));
-                //TODO Load main menu
-                SceneManager.LoadScene("Level_1");
+                SceneManager.LoadScene("Main menu");
             }
         }
     }

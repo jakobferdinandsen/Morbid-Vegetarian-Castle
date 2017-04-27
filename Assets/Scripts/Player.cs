@@ -134,6 +134,12 @@ public class Player : MonoBehaviour{
             SceneManager.LoadScene("Level_2_Part2");
             Debug.Log("Entered door to Level_2_Part2");
         }
+        else if (coll.CompareTag("CompleteLevel1")) {
+            if (yellowKeyCollected > 0) {
+                Destroy(GameObject.FindWithTag("LevelManager"));
+                SceneManager.LoadScene("Level_2");
+            }
+        }
     }
 
     private void SaveState() {

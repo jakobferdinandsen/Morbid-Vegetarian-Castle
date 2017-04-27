@@ -157,8 +157,16 @@ public class Player : MonoBehaviour{
         }
         else if (coll.CompareTag("CompleteLevel1")) {
             if (yellowKeyCollected > 0) {
+                LevelManager.firstLaunch = true;
                 Destroy(GameObject.FindWithTag("LevelManager"));
                 SceneManager.LoadScene("Level_2");
+            }
+        }else if (coll.CompareTag("CompleteLevel2")) {
+            if (greenKeyCollected > 0) {
+                LevelManager.firstLaunch = true;
+                Destroy(GameObject.FindWithTag("LevelManager"));
+                //TODO Load main menu
+                SceneManager.LoadScene("Level_1");
             }
         }
     }

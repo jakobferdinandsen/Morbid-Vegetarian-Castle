@@ -3,19 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ResetLevel : MonoBehaviour
-{
-
-    private Scene scene;
-
-    private void Start()
-    {
-        scene = SceneManager.GetActiveScene();
-    }
-
-    public void LevelReset()
-    {
-        Application.LoadLevel(scene.name);
-        Time.timeScale = 1;
+public class ResetLevel : MonoBehaviour{
+    public void LevelReset() {
+        if (PlayerPrefs.HasKey("currentLevel")) {
+            SceneManager.LoadScene(PlayerPrefs.GetString("currentLevel"));
+            Time.timeScale = 1;
+        }
     }
 }

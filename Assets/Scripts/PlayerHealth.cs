@@ -3,24 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour{
-    public int health = 3;
+    private int health = 3;
 
-    void Start() {
-    }
-
-    // Update is called once per frame
-    void Update() {
+    void Awake() {
+        LoadState();
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyProjectile")) {
-            health--;
-            GameObject[] healthObjects = GameObject.FindGameObjectsWithTag("Health");
-            Destroy(healthObjects[healthObjects.Length - 1]);
-            Destroy(other.gameObject);
-            if (health == 0) {
+        if (other.gameObject.CompareTag("Enemy")) {
+            if (--health == 0) {
                 //TODO Show game over screen
             }
+            UpdateHUD();
+            Destroy(other.gameObject);
         }
+    }
+
+    public void SaveState() {
+        PlayerPrefs.SetInt("health", health);
+    }
+
+    private void LoadState() {
+        if (PlayerPrefs.HasKey("health")) {
+            health = PlayerPrefs.GetInt("health");
+            UpdateHUD();
+            PlayerPrefs.DeleteKey("health");
+        }
+    }
+
+    private void UpdateHUD() {
+        GameObject.FindWithTag("Health1").GetComponent<SpriteRenderer>().enabled = health > 0;
+        GameObject.FindWithTag("Health2").GetComponent<SpriteRenderer>().enabled = health > 1;
+        GameObject.FindWithTag("Health3").GetComponent<SpriteRenderer>().enabled = health > 2;
     }
 }

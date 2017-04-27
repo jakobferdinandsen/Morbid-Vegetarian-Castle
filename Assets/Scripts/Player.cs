@@ -10,8 +10,13 @@ public class Player : MonoBehaviour{
     public float speed;
 
     private Rigidbody2D playerObject;
+
+
+    //Attack
     private GameObject sword;
     private Boolean swinging;
+    public float attackRadius;
+    private float attackRad;
 
     //Collections
     private int babySalatsCollected = 0;
@@ -20,6 +25,7 @@ public class Player : MonoBehaviour{
     private int greenKeyCollected = 0;
     private int blueKeyCollected = 0;
     private int redKeyCollected = 0;
+
 
 
     // Use this for initialization
@@ -54,16 +60,17 @@ public class Player : MonoBehaviour{
 
         if (swinging) {
             if (sword.GetComponent<BoxCollider2D>().enabled == false) {
-                sword.transform.localEulerAngles = new Vector3(0, 0, 330);
-                sword.transform.localPosition = new Vector3(1.61f, -0.046f, 0);
+                attackRad = (float) (0.5*Math.PI);
             }
             sword.GetComponent<BoxCollider2D>().enabled = true;
             sword.GetComponent<SpriteRenderer>().enabled = true;
-
-            sword.transform.localEulerAngles = new Vector3(0, 0,
-                sword.transform.localEulerAngles.z - 400 * Time.deltaTime);
-
-            if (sword.transform.localEulerAngles.z < 210) {
+            float x = (float) (attackRadius * Math.Cos(attackRad));
+            float y = (float) (attackRadius * Math.Sin(attackRad));
+            sword.transform.localPosition = new Vector3(-x, y, 0);
+            sword.transform.localEulerAngles = new Vector3(0,0, (-attackRad*57.2958f)+150);
+            attackRad = attackRad + Time.deltaTime;
+            Debug.Log("x:"+x+", y:"+y+", rad:"+attackRad);
+            if (attackRad >= 1.5*Math.PI) {
                 swinging = false;
                 sword.GetComponent<BoxCollider2D>().enabled = false;
                 sword.GetComponent<SpriteRenderer>().enabled = false;

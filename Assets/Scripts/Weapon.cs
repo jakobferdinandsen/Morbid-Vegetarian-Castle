@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour {
 	}
 
     void OnCollisionEnter2D(Collision2D coll) {
-        if (coll.gameObject.tag == "Enemy") {
+        if (coll.gameObject.CompareTag("Enemy") || coll.gameObject.CompareTag("RangedEnemy") || coll.gameObject.CompareTag("BigGuy")) {
             Destroy(coll.gameObject);
         }
     }

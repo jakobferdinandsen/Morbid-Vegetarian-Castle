@@ -10,4 +10,11 @@ public class ResetLevel : MonoBehaviour{
             Time.timeScale = 1;
         }
     }
+
+    public void GoToMainMenu() {
+        LevelManager.firstLaunch = true;
+        Destroy(GameObject.FindWithTag("LevelManager"));
+        SceneManager.LoadScene("Main_Menu");
+        Time.timeScale = 1;
+    }
 }

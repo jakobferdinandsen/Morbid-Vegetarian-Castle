@@ -63,7 +63,6 @@ public class Player : MonoBehaviour{
             bullet.transform.position = new Vector3(transform.position.x + normalizedDirection.x,
                 transform.position.y + normalizedDirection.y);
             direction.Normalize();
-            Debug.Log(direction);
             bullet.GetComponent<Rigidbody2D>().velocity = direction * speed * 2;
         }
 
@@ -101,7 +100,6 @@ public class Player : MonoBehaviour{
             Destroy(coll.gameObject);
             babySalatsCollected++;
             GameObject.FindGameObjectWithTag("Baby_salat_text").GetComponent<Text>().text = babySalatsCollected + "/6";
-            Debug.Log("Baby_Salat Collected " + babySalatsCollected + "/6");
         }
 
         //Yellow Key
@@ -109,7 +107,6 @@ public class Player : MonoBehaviour{
             Destroy(coll.gameObject);
             yellowKeyCollected++;
             GameObject.FindGameObjectWithTag("Yellow_Key_Text").GetComponent<Text>().text = yellowKeyCollected + "/1";
-            Debug.Log("Yellow_Key Collected " + yellowKeyCollected + "/1");
         }
 
         //Green Key
@@ -117,7 +114,6 @@ public class Player : MonoBehaviour{
             Destroy(coll.gameObject);
             greenKeyCollected++;
             GameObject.FindGameObjectWithTag("Green_Key_Text").GetComponent<Text>().text = greenKeyCollected + "/1";
-            Debug.Log("Green_Key Collected " + greenKeyCollected + "/1");
         }
 
         //Green Door
@@ -165,7 +161,7 @@ public class Player : MonoBehaviour{
             if (greenKeyCollected > 0) {
                 LevelManager.firstLaunch = true;
                 Destroy(GameObject.FindWithTag("LevelManager"));
-                SceneManager.LoadScene("Main menu");
+                SceneManager.LoadScene("Main_Menu");
             }
         }
     }
@@ -216,7 +212,6 @@ public class Player : MonoBehaviour{
 
     private void LoadState() {
         if (PlayerPrefs.HasKey("lastLevel")) {
-            Debug.Log(PlayerPrefs.GetString("lastLevel"));
             if (PlayerPrefs.GetString("lastLevel") == "Level_2_Part2") {
                 gameObject.transform.position = new Vector3(48.52f, -12.14f, 0);
                 PlayerPrefs.DeleteKey("lastLevel");

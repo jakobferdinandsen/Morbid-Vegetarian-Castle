@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour{
     private int health = 3;
@@ -12,13 +13,13 @@ public class PlayerHealth : MonoBehaviour{
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyBullet")) {
             if (--health == 0) {
-                //TODO Show game over screen
+                SceneManager.LoadScene("Game_over");
             }
             UpdateHUD();
             Destroy(other.gameObject);
         }
         if (other.gameObject.CompareTag("BigGuy")) {
-            //TODO Show game over screen
+            SceneManager.LoadScene("Game_over");
         }
     }
 

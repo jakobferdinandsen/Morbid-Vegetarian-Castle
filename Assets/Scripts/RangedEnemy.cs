@@ -33,7 +33,7 @@ public class RangedEnemy : MonoBehaviour{
             bullet.transform.position = new Vector3(transform.position.x + normalizedDirection.x,
                 transform.position.y + normalizedDirection.y);
             direction.Normalize();
-            Debug.Log(direction);
+            gameObject.GetComponent<SpriteRenderer>().flipX = direction.x < 0;
             float angle = (float) Math.Atan(direction.x / direction.y);
             if (direction.y > 0 || direction.x > 0) {
                 bullet.transform.eulerAngles = new Vector3(0, 0, angle * 57.2958f * -1);

@@ -40,6 +40,7 @@ public class SoundScript : MonoBehaviour
     void Update()
     {
         movementHandler();
+        attackHandler();
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -57,27 +58,34 @@ public class SoundScript : MonoBehaviour
         }
 
         //Door_removed
-        if (coll.gameObject.tag == "Green_Door" || coll.gameObject.tag == "Yellow_door")
+        if (coll.gameObject.tag == "Green_Door" || coll.gameObject.tag == "Yellow_Door")
         {
             audioHandler.PlayOneShot(doorPickUp);
         }
+    }
 
-        //Ranged Hit
-        if (Input.GetMouseButton(0) && rangedHitSound == true)
-        {
-            audioHandler.PlayOneShot(rangedHit);
-            rangedHitSound = false;
-        }
-        else if (Input.GetMouseButton(0) && rangedHitSound == false)
-        {
-            audioHandler.PlayOneShot(rangedHit2);
-            rangedHitSound = true;
-        }
 
-        //Melee Hit
-        if (Input.GetMouseButton(1))
+    void attackHandler()
+    {
+        if (!audioHandler.isPlaying)
         {
-            audioHandler.PlayOneShot(meleeHit);
+            //Ranged Hit
+            if (Input.GetMouseButton(0) && rangedHitSound == true)
+            {
+                audioHandler.PlayOneShot(rangedHit);
+                rangedHitSound = false;
+            }
+            else if (Input.GetMouseButton(0) && rangedHitSound == false)
+            {
+                audioHandler.PlayOneShot(rangedHit2);
+                rangedHitSound = true;
+            }
+
+            //Melee Hit
+            if (Input.GetMouseButton(1))
+            {
+                audioHandler.PlayOneShot(meleeHit);
+            }
         }
     }
 

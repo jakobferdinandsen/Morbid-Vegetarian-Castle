@@ -273,6 +273,12 @@ public class Player : MonoBehaviour{
             foreach (GameObject salad in GameObject.FindGameObjectsWithTag("Baby_salat")) {
                 Destroy(salad);
             }
+            foreach (GameObject rangedEnemy in GameObject.FindGameObjectsWithTag("RangedEnemy")) {
+                Destroy(rangedEnemy);
+            }
+            foreach (GameObject bigGuy in GameObject.FindGameObjectsWithTag("BigGuy")) {
+                Destroy(bigGuy);
+            }
 
             string json = PlayerPrefs.GetString(SceneManager.GetActiveScene().name + "savedObjects");
             PositionArray positions = JsonUtility.FromJson<PositionArray>(json);

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class ResetLevel : MonoBehaviour{
     public void LevelReset() {
         if (PlayerPrefs.HasKey("currentLevel")) {
+            LevelManager.firstLaunch = true;
             SceneManager.LoadScene(PlayerPrefs.GetString("currentLevel"));
             Time.timeScale = 1;
         }
